@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cipher Decoder</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Cipher Decoder</h1>
+    </header>
+    <main>
+        <section class="form-section">
+            <label for="cipherType">Choose a cipher:</label>
+            <select id="cipherType">
+                <option value="atbash">Atbash Cipher</option>
+                <option value="caesar">Caesar Cipher</option>
+                <option value="vigenere">Vigenère Cipher</option>
+                <option value="base64">Base64</option>
+                <option value="morse">Morse Code</option>
+            </select>
+
+            <label for="inputText">Input text:</label>
+            <textarea id="inputText" rows="4" placeholder="Enter your text here..."></textarea>
+
+            <label for="key">Key/Shift (if needed):</label>
+            <input type="text" id="key" placeholder="Optional key or shift value">
+
+            <button id="decodeButton">Decode</button>
+        </section>
+        <section class="result-section">
+            <h2>Result:</h2>
+            <p id="result"></p>
+        </section>
+    </main>
+    <script src="AtbashCipher.js"></script>
+    <script src="CeaserCipher.js"></script>
+    <script src="VigenereCipher.js"></script>
+    <script src="base64.js"></script>
+    <script src="morse.js"></script>
+    <script>
+        document.getElementById("decodeButton").addEventListener("click", function() {
+            const cipherType = document.getElementById("cipherType").value;
+            const inputText = document.getElementById("inputText").value;
+            const key = document.getElementById("key").value;
+            let output = "";
+
+            switch (cipherType) {
+                case "atbash":
+                    output = atbashDecode(inputText);
+                    break;
+                case "caesar":
+                    output = cipherDecode(inputText, parseInt(key, 10) || 0);
+                    break;
+                case "vigenere":
+                    output = vigenereDecode(inputText, key || "key");
+                    break;
+                case "base64":
+                    output = decodeBase64(inputText);
+                    break;
+                case "morse":
+                    output = decodeMorse(inputText);
+                    break;
+                default:
+                    output = "Invalid cipher type!";
+            }
+
+            document.getElementById("result").textContent = output;
+        });
+    </script>
+</body>
+</html>
