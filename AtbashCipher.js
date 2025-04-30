@@ -10,7 +10,7 @@ function atbashDecode(text) {
             let index = alphabet.indexOf(char);
             result += reversedAlphabet[index];
         } else if (upperAlphabet.includes(char)) {
-            let index = upperAlphabetalphabet.indexOf(char);
+            let index = upperAlphabet.indexOf(char);
             result += upperReversedAlphabet[index];
         } else {
             result += char;
