@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Raksturojam lapas simbolu kodējumu -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cipher Decoder</title>
     <style>
+        /* pievienoja fonu, fontu un citas vizuālās iezīmes */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(to right, #74ebd5, #acb6e5);
+            background: linear-gradient(to right, #74ebd5, #acb6e5); /* Fons ar lineāru pāreju */
             color: #333;
         }
         header {
             text-align: center;
             padding: 20px;
-            background-color: #4a90e2;
+            background-color: #4a90e2; /* Galvenais fons */
             color: #fff;
-            transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.3s, color 0.3s; /* Pāreja uz krāsām */
         }
         main {
             max-width: 800px;
@@ -29,7 +31,7 @@
             border-radius: 10px;
             padding: 20px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* ēnojums ap formām */
         }
         label {
             display: block;
@@ -45,28 +47,30 @@
             font-size: 1rem;
         }
         button {
-            background-color: #4a90e2;
+            background-color: #4a90e2; /* zila poga */
             color: #fff;
             border: none;
             cursor: pointer;
         }
         button:hover {
-            background-color: #357ab8;
+            background-color: #357ab8; /* Poga kļūst tumšāka peles pārvirzēšanas gadījumā */
         }
         .result-section {
             background: #f9f9f9;
             border-radius: 10px;
             padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Rezultātu sadaļas dizains */
         }
     </style>
 </head>
 <body>
+    <!-- nosaukumu -->
     <header id="header">
         <h1>Cipher Decoder</h1>
     </header>
     <main>
         <section class="form-section">
+            <!-- šifra izvēlei -->
             <label for="cipherType">Choose a cipher:</label>
             <select id="cipherType">
                 <option value="atbash">Atbash Cipher</option>
@@ -76,69 +80,83 @@
                 <option value="morse">Morse Code</option>
             </select>
 
+            <!-- ievades lauks -->
             <label for="inputText">Input text:</label>
             <textarea id="inputText" rows="4" placeholder="Enter your text here..."></textarea>
 
+            <!-- Atslēgas vai nobīdes ievades lauks (parādās tikai Caesar un Vigenère šifriem) -->
             <label for="key" id="keyLabel" style="display: none;">Key/Shift (if needed):</label>
             <input type="text" id="key" placeholder="Optional key or shift value" style="display: none;">
 
+            <!-- dekodēšanas pogas -->
             <button id="decodeButton">Decode</button>
         </section>
         <section class="result-section">
             <h2>Result:</h2>
-            <p id="result"></p>
+            <p id="result"></p> <!-- parādīts atšifrētais teksts -->
         </section>
     </main>
+
+    <!-- Iekļauti ārējie JavaScript faili -->
     <script src="AtbashCipher.js"></script>
     <script src="CeaserCipher.js"></script>
     <script src="VigenereCipher.js"></script>
     <script src="base64.js"></script>
     <script src="morse.js"></script>
+
     <script>
+        // Ņemam DOM elementus no lapas
         const cipherTypeElement = document.getElementById("cipherType");
         const keyLabel = document.getElementById("keyLabel");
         const keyInput = document.getElementById("key");
         const headerElement = document.getElementById("header");
 
+        // Pārslēdzam galvenes tekstu atkarībā no izvēlētā šifra
         cipherTypeElement.addEventListener("change", function() {
             const selectedCipher = cipherTypeElement.value;
+            // Mainām galvenes virsrakstu, piemērojot izvēlētā šifra nosaukumu
             headerElement.innerHTML = `<h1>${selectedCipher.charAt(0).toUpperCase() + selectedCipher.slice(1)} Cipher Decoder</h1>`;
             
-             if (selectedCipher === "caesar" || selectedCipher === "vigenere") {
-                keyLabel.style.display = "block";
-                keyInput.style.display = "block";
+            // Ja izvēlēts Caesar vai Vigenère šifrs, rādām atslēgas ievadi
+            if (selectedCipher === "caesar" || selectedCipher === "vigenere") {
+                keyLabel.style.display = "block";  // Rādām atslēgas ievades lauku
+                keyInput.style.display = "block";  // Rādām atslēgas ievadi
             } else {
-                keyLabel.style.display = "none";
-                keyInput.style.display = "none";
+                keyLabel.style.display = "none";   // Slēpjam atslēgas ievadi
+                keyInput.style.display = "none";   // Slēpjam atslēgas ievadi
             }
         });
 
+        // Poga "Decode" noklikšķināšanas notikums
         document.getElementById("decodeButton").addEventListener("click", function() {
+            // Saņemam ievadītos datus no lapas
             const cipherType = cipherTypeElement.value;
             const inputText = document.getElementById("inputText").value;
-            const key = keyInput.value;
-            let output = "";
+            const key = keyInput.value;  // Atslēga vai nobīde (ja nepieciešama)
+            let output = "";  // Mainīgais rezultāta saglabāšanai
 
+            // Izsauc attiecīgo dekodēšanas funkciju atkarībā no izvēlētā šifra
             switch (cipherType) {
                 case "atbash":
-                    output = atbashDecode(inputText);
+                    output = atbashDecode(inputText);  // Atbash dekodēšana
                     break;
                 case "caesar":
-                    output = cipherDecode(inputText, parseInt(key) || 0);
+                    output = cipherDecode(inputText, parseInt(key) || 0);  // Caesar dekodēšana ar nobīdi
                     break;
                 case "vigenere":
-                    output = vigenereDecode(inputText, key || "key");
+                    output = vigenereDecode(inputText, key || "key");  // Vigenere dekodēšana ar atslēgu
                     break;
                 case "base64":
-                    output = decodeBase64(inputText);
+                    output = decodeBase64(inputText);  // Base64 dekodēšana
                     break;
                 case "morse":
-                    output = decodeMorse(inputText);
+                    output = decodeMorse(inputText);  // Morse koda dekodēšana
                     break;
                 default:
-                    output = "Invalid cipher type!";
+                    output = "Invalid cipher type!";  // Ja izvēlēts nezināms šifrs
             }
 
+            // Parādām rezultātu lapā
             document.getElementById("result").textContent = output;
         });
     </script>
