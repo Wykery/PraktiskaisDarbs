@@ -1,5 +1,4 @@
 function atbashDecode(text) {
-    //удалить text и написать строчку кода, которая будет считывать текст с блядского html файла
     const alphabet = 'abcdefghijklmnopqrstuvwxyz';
     const upperAlphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const reversedAlphabet = alphabet.split('').reverse().join('');
@@ -17,5 +16,5 @@ function atbashDecode(text) {
             result += char;
         }
     }
-    //строчка для вывода результата из переменной result в html файл
+    return result;
 }

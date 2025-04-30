@@ -124,7 +124,7 @@
                     output = atbashDecode(inputText);
                     break;
                 case "caesar":
-                    output = cipherDecode(inputText, parseInt(key, 10) || 0);
+                    output = cipherDecode(inputText, parseInt(key) || 0);
                     break;
                 case "vigenere":
                     output = vigenereDecode(inputText, key || "key");

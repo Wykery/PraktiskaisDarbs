@@ -1,6 +1,4 @@
 function vigenereDecode(text, keyword) {
-    //нужно удалить атрибуты text и keyword
-    //вместо этого написать 2 строчки кода, которые будут считывать данные text и keyword с html файла
     const alphabet = 'abcdefghijklmnopqrstuvwxyz';
     let result = '';
     let keywordIndex = 0;
@@ -19,5 +17,5 @@ function vigenereDecode(text, keyword) {
             result += char;
         }
     }
-    //строчка для вывода результата из переменной result в html файл
+    return result;
 }

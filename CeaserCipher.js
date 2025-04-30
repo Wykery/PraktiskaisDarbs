@@ -1,6 +1,4 @@
 function cipherDecode(text, shift) {
-    //нужно удалить атрибуты text и shift
-    //вместо этого написать 2 строчки кода, которые будут считывать данные text и shift с html файла
     const alphabet = 'abcdefghijklmnopqrstuvwxyz';
     const upperAlphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     let decodedText = '';
@@ -18,5 +16,5 @@ function cipherDecode(text, shift) {
             decodedText += char;
         }
     }
-    //строчка для вывода результата из переменной decodeText в html файл
+    return decodedText;
 }

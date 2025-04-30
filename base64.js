@@ -11,6 +11,3 @@ function decodeBase64(base64String) {
     }
 }
 
-// Примеры использования:
-console.log(encodeBase64("Привет мир"));
-console.log(decodeBase64(encodeBase64("Привет мир")));

@@ -23,7 +23,7 @@ function encodeMorse(text) {
     return text.toUpperCase().split('').map(c => {
         if (c === ' ') return '';
         return morseMap[c] || '';
-    }).join(' ').replace(/ {2,}/g, '   '); // 3 пробела между словами
+    }).join(' ').replace(/ {2,}/g, '   '); 
 }
 
 function decodeMorse(morseCode) {
@@ -34,6 +34,3 @@ function decodeMorse(morseCode) {
     ).join(' ');
 }
 
-// Примеры использования:
-console.log(encodeMorse("HELLO WORLD"));
-console.log(decodeMorse(encodeMorse("HELLO WORLD")));
